@@ -42,7 +42,8 @@
         <label for="name" class="mb-1">Tên danh mục</label>
         <input id="name" formControlName="tenDanhMuc" type="text" pInputText>
         <div *ngIf="submitted && form.controls.tenDanhMuc.errors">
-          <small class="p-error">Vui lòng điền trường này.</small>
+          <small class="p-error" *ngIf="form.controls.tenDanhMuc.errors.required">Vui lòng điền trường này.</small>
+          <small class="p-error" *ngIf="form.controls.tenDanhMuc.errors.unique">Vui lòng điền tên danh mục khác.</small>
         </div>
       </div>
       <div class="p-field p-col-12 p-md-6">
