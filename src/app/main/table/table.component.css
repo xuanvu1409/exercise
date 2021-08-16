@@ -1,0 +1,12 @@
+.float-right {
+  float: right;
+}
+
+.p-field>label {
+  display: inline-block;
+  margin-bottom: .5rem;
+}
+
+.p-field {
+  margin-bottom: 1rem;
+}
