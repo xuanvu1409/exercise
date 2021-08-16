@@ -64,7 +64,6 @@ export class TableComponent implements OnInit {
         return;
       }
       const isNameUnique = this.dataSource.map(data => data.tenDanhMuc).some(value => value === tenDanhMuc.value);
-      console.log(isNameUnique)
       if (isNameUnique) {
         console.log(isNameUnique);
         // @ts-ignore
@@ -109,6 +108,7 @@ export class TableComponent implements OnInit {
   }
 
   delete = (index: any) => {
+    this.loadData()
     this.dataSource.splice(index, 1);
     localStorage.setItem('data', JSON.stringify(this.dataSource));
   }
