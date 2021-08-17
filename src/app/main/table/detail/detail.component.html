@@ -4,15 +4,15 @@
     <h3 class="title">Chi tiết</h3>
     <div class="body">
       <div class="work-name">
-        Tên: {{workDetail.tenDanhMuc}}
+        Tên: {{workDetail?.tenDanhMuc || null}}
       </div>
       <div class="work-time">
-        Thời gian: {{workDetail.thoiGian}}
+        Thời gian: {{workDetail?.thoiGian || ''}}
       </div>
       <div class="work-status">
         Trạng thái:
         <ng-container *ngFor="let i of status">
-          <span *ngIf="i.value == workDetail.trangThai">
+          <span *ngIf="i.value == workDetail?.trangThai">
             {{i.name}}
           </span>
         </ng-container>
