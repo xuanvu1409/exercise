@@ -25,6 +25,7 @@ export class TableComponent implements OnInit {
   submitted = false;
   addOrEdit: boolean | undefined;
   editItem: any;
+  nameUnique: String = "";
 
   constructor(
     private formBuilder: FormBuilder
@@ -35,12 +36,13 @@ export class TableComponent implements OnInit {
     this.form = this.formBuilder.group({
       tenDanhMuc: ['', [Validators.required]],
       thoiGian: ['', [Validators.required]],
-    }, { validator: this.uniqueValidator() })
+    }, {validator: this.uniqueValidator()})
 
     this.loadData();
   }
 
   handleClick = () => {
+    this.submitted = false;
     this.addOrEdit = true;
     this.displayModal = true;
     this.form.reset();
@@ -59,15 +61,24 @@ export class TableComponent implements OnInit {
     return (formGroup: FormGroup) => {
       // @ts-ignore
       let tenDanhMuc = formGroup.controls['tenDanhMuc'];
+      let thoiGian = formGroup.controls['thoiGian'];
 
       if (tenDanhMuc.errors) {
         return;
       }
       const isNameUnique = this.dataSource.map(data => data.tenDanhMuc).some(value => value === tenDanhMuc.value);
-      if (isNameUnique) {
-        console.log(isNameUnique);
-        // @ts-ignore
-        tenDanhMuc.setErrors({unique: true});
+      const isTimeUnique = this.dataSource.map(data => data.thoiGian).some(value => value === thoiGian.value);
+      if (this.addOrEdit) {
+        if (isNameUnique) {
+          // @ts-ignore
+          tenDanhMuc.setErrors({unique: true});
+        }
+      } else {
+          let nameUni = this.dataSource.filter(e => e.tenDanhMuc !== this.nameUnique).some(value => value.tenDanhMuc !== tenDanhMuc.value)
+
+          if (!nameUni) {
+            tenDanhMuc.setErrors({unique: true});
+          }
       }
     };
   }
@@ -93,9 +104,11 @@ export class TableComponent implements OnInit {
   }
 
   edit = (index: any) => {
+    this.submitted = false;
     this.addOrEdit = false;
     this.displayModal = true;
     this.editItem = index;
+    this.nameUnique = this.dataSource[index].tenDanhMuc;
     this.form.patchValue({
       tenDanhMuc: this.dataSource[index].tenDanhMuc,
       thoiGian: this.dataSource[index].thoiGian
