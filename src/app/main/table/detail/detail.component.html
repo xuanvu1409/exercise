@@ -1,0 +1,29 @@
+<a routerLink="/work">Back</a>
+<div class="row">
+  <div class="detail">
+    <h3 class="title">Chi tiết</h3>
+    <div class="body">
+      <div class="work-name">
+        Tên: {{workDetail.tenDanhMuc}}
+      </div>
+      <div class="work-time">
+        Thời gian: {{workDetail.thoiGian}}
+      </div>
+      <div class="work-status">
+        Trạng thái:
+        <ng-container *ngFor="let i of status">
+          <span *ngIf="i.value == workDetail.trangThai">
+            {{i.name}}
+          </span>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="orther">
+    <h3 class="title">Công việc khác</h3>
+    <ul>
+      <li *ngFor="let item of orther"><a [routerLink]="['/work', item.id]">{{item.tenDanhMuc}}</a></li>
+    </ul>
+  </div>
+
+</div>

@@ -1,0 +1,18 @@
+.detail {
+  width: 70%;
+  border-right: 1px solid black;
+}
+
+.orther {
+  width: 30%;
+  padding-left: 20px
+}
+
+.orther > ul {
+  list-style: none;
+  padding: 0
+}
+
+.row {
+  display: flex;
+}

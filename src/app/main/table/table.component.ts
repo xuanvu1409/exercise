@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-table',
@@ -34,6 +34,7 @@ export class TableComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
+      id: [''],
       tenDanhMuc: ['', [Validators.required]],
       thoiGian: ['', [Validators.required]],
     }, {validator: this.uniqueValidator()})
@@ -76,7 +77,7 @@ export class TableComponent implements OnInit {
       } else {
           let nameUni = this.dataSource.filter(e => e.tenDanhMuc !== this.nameUnique).some(value => value.tenDanhMuc !== tenDanhMuc.value)
 
-          if (!nameUni) {
+          if (!nameUni && this.dataSource.length != 1) {
             tenDanhMuc.setErrors({unique: true});
           }
       }
@@ -90,7 +91,7 @@ export class TableComponent implements OnInit {
     }
     this.loadData();
     if (this.addOrEdit) {
-      localStorage.setItem('data', JSON.stringify([...this.dataSource, {...this.form.value, trangThai: 0}]));
+      localStorage.setItem('data', JSON.stringify([...this.dataSource, {...this.form.value, id: this.randomString(), trangThai: 0}]));
       this.displayModal = false;
       this.loadData();
       this.submitted = false;
@@ -110,6 +111,7 @@ export class TableComponent implements OnInit {
     this.editItem = index;
     this.nameUnique = this.dataSource[index].tenDanhMuc;
     this.form.patchValue({
+      id: this.dataSource[index].id,
       tenDanhMuc: this.dataSource[index].tenDanhMuc,
       thoiGian: this.dataSource[index].thoiGian
     })
@@ -129,5 +131,12 @@ export class TableComponent implements OnInit {
   changeStatus = (index: any) => {
     this.dataSource[index].trangThai = 1;
     localStorage.setItem('data', JSON.stringify(this.dataSource));
+  }
+
+  randomString = () => {
+    let chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let result = '';
+    for (let i = 20; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+    return result;
   }
 }
