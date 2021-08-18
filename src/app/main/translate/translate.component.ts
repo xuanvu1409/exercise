@@ -24,7 +24,6 @@ export class TranslateComponent implements OnInit {
   getFolder = () => {
     this.translateService.getFolder().subscribe((res:any) => {
       this.folders = res;
-      this.router.navigate(['/translate', res[0].categoryId])
     })
   }
 

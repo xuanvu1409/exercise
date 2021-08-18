@@ -8,6 +8,7 @@ import {TranslateService} from "../../../services/translate.service";
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
+  @Input() data:any = '';
   displayModal:boolean = false;
   item:any = {};
   list:any[] = [];
@@ -21,6 +22,10 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
+      console.log(params)
+      // if (!params) {
+      //   this.getNote(this.data);
+      // }
       this.getNote(params.categoryId)
     })
   }

@@ -5,18 +5,8 @@ import {ListComponent} from "./list/list.component";
 
 const routes: Routes = [
   {
-    path: '',
-    component: TranslateComponent,
-    children: [
-      {
-        path: '',
-        component: ListComponent
-      },
-      {
-        path: ':categoryId',
-        component: ListComponent
-      }
-    ]
+    path: ':categoryId',
+    component: TranslateComponent
   }
 ];
 

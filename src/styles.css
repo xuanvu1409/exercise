@@ -40,3 +40,7 @@ ul {
 .text-center {
   text-align: center;
 }
+
+p {
+  margin: 0
+}
