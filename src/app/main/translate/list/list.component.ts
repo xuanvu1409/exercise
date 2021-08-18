@@ -22,10 +22,6 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      console.log(params)
-      // if (!params) {
-      //   this.getNote(this.data);
-      // }
       this.getNote(params.categoryId)
     })
   }

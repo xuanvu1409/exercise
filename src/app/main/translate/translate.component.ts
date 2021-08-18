@@ -23,6 +23,11 @@ export class TranslateComponent implements OnInit {
 
   getFolder = () => {
     this.translateService.getFolder().subscribe((res:any) => {
+      this.route.params.subscribe(params => {
+        if (Object.keys(params).length == 0) {
+          this.router.navigate(['/translate', res[0].categoryId])
+        }
+      })
       this.folders = res;
     })
   }
