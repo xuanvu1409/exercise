@@ -11,6 +11,10 @@ const routes: Routes = [
       {
         path: '',
         component: ListComponent
+      },
+      {
+        path: ':categoryId',
+        component: ListComponent
       }
     ]
   }

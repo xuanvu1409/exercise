@@ -1,4 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {TranslateService} from "../../../services/translate.service";
 
 @Component({
   selector: 'app-list',
@@ -6,14 +8,21 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-  @Input() list: any = [];
   displayModal:boolean = false;
   item:any = {};
+  list:any[] = [];
+  screen: Number = 1;
 
-  constructor() {
+  constructor(
+    private route: ActivatedRoute,
+    private translateService: TranslateService
+  ) {
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.getNote(params.categoryId)
+    })
   }
 
   iconType = (str:String) => {
@@ -26,5 +35,11 @@ export class ListComponent implements OnInit {
   show = (item: Object) => {
     this.item = item;
     this.displayModal = true;
+  }
+
+  getNote = (id) => {
+    this.translateService.getNote(id).subscribe((res:any) => {
+      this.list = res;
+    })
   }
 }

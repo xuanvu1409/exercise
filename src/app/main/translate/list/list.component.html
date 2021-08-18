@@ -1,17 +1,32 @@
-<div class="list">
-  <div class="item" *ngFor="let item of list" (click)="show(item)">
-    <span class="icon">{{iconType(item.type)}}</span>
-    <span class="name">{{item.name}}</span>
+
+  <div class="option">
+    <button *ngIf="list.length != 0" (click)="screen == 1 ? screen = 2 : screen = 1" pButton pRipple type="button" label="flashcard" class="p-button-raised p-button-secondary p-button-text mr-1"></button>
+    <button *ngIf="list.length != 0" pButton pRipple type="button" label="fill" class="p-button-raised p-button-secondary p-button-text"></button>
   </div>
-</div>
-<p-dialog header="Detail" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}"
-          [draggable]="false" [resizable]="false">
-  <div class="item-detail">
-    <div class="item-name">Name: {{item?.name}}</div>
-    <div class="item-mean">Mean: {{item.mean != "null" ? item.mean : ''}}</div>
-    <div class="item-type">Type: {{item?.type}}</div>
+  <div class="content card">
+    <div class="list" *ngIf="screen == 1">
+      <div class="item" *ngFor="let item of list" (click)="show(item)">
+        <span class="icon">{{iconType(item.type)}}</span>
+        <span class="name">{{item.name}}</span>
+      </div>
+      <div class="not-item" *ngIf="list.length == 0">
+        Danh sách trống.
+      </div>
+    </div>
+    <app-flashcard *ngIf="screen == 2" [list]="list"></app-flashcard>
   </div>
-  <ng-template pTemplate="footer">
-    <p-button icon="pi pi-check" (click)="displayModal=false" label="Ok" styleClass="p-button-text"></p-button>
-  </ng-template>
-</p-dialog>
+  <p-dialog [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}"
+            [draggable]="false" [resizable]="false">
+    <div class="item-detail">
+      <div class="bg-name">
+        <div class="item-name">{{item?.name}}</div>
+      </div>
+      <div class="detail">
+        <div class="item-mean">{{item.mean != "null" ? item.mean : ''}}</div>
+        <div class="item-type">({{item?.type}})</div>
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-check" (click)="displayModal=false" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+  </p-dialog>

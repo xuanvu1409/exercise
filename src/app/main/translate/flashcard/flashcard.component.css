@@ -22,7 +22,7 @@
   border-bottom-right-radius: 6px;
   padding: 5px;
   color: white;
-  background-color: #16a085;
+  background-color: #dd2f6e;
   text-align: center;
 }
 
@@ -114,8 +114,18 @@
 }
 
 .flip-box-back {
+  border-radius: 6px;
   background-color: #555;
   color: white;
   transform: rotateY(180deg);
+}
+
+.flip-box-back h2 {
+  font-size: 60px;
+  margin: 15px 0;
+}
+
+.flip-box-back p {
+  font-size: 24px;
 }
 

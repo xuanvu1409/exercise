@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TranslateService} from "../../services/translate.service";
-import {createLogErrorHandler} from "@angular/compiler-cli/ngcc/src/execution/tasks/completion";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-translate',
@@ -10,10 +10,11 @@ import {createLogErrorHandler} from "@angular/compiler-cli/ngcc/src/execution/ta
 export class TranslateComponent implements OnInit {
   folders: any[] = [];
   data:any = [];
-  screen: Number = 1;
 
   constructor(
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -23,27 +24,7 @@ export class TranslateComponent implements OnInit {
   getFolder = () => {
     this.translateService.getFolder().subscribe((res:any) => {
       this.folders = res;
-      this.getNote(res[0].categoryId[0])
-    })
-  }
-
-  changeFolder = (event: any = {}, id) => {
-    this.screen = 1;
-    if (event) {
-      let navActive = document.getElementsByClassName('active')[0];
-      if (navActive) {
-        navActive.classList.remove('active');
-      }
-      event.target.classList.add('active');
-    }
-
-    this.getNote(id);
-  }
-
-  getNote = (id) => {
-    this.translateService.getNote(id).subscribe((res:any) => {
-      this.data = res;
-      console.log(res)
+      this.router.navigate(['/translate', res[0].categoryId])
     })
   }
 

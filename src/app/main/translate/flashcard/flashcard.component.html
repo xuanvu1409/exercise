@@ -1,45 +1,50 @@
 <div class="content">
-  <div class="card position-relative">
-    <div class="card-header">
-      <div class="quantity"><span style="color: #dd2f6e">{{index + 1}}</span>/{{list.length}}</div>
-      <div class="filter">
-        <p-dropdown [options]="options" placeholder="Tất cả" optionLabel="label" optionValue="value" [showClear]="true"></p-dropdown>
+  <div class="body" *ngIf="list.length != 0">
+    <div class="card position-relative">
+      <div class="card-header">
+        <div class="quantity"><span style="color: #dd2f6e">{{index + 1}}</span>/{{list.length}}</div>
+        <div class="filter">
+          <p-dropdown [options]="options" placeholder="Tất cả" optionLabel="label" optionValue="value" [showClear]="true"></p-dropdown>
+        </div>
       </div>
-    </div>
-    <div class="card-body">
-      <div class="flip-box" (click)="show()">
-        <div class="flip-box-inner">
-          <div class="flip-box-front">
-            <div class="char">
-              {{list[index]?.name}}
+      <div class="card-body">
+        <div class="flip-box" (click)="show()">
+          <div class="flip-box-inner">
+            <div class="flip-box-front">
+              <div class="char">
+                {{list[index]?.name}}
+              </div>
             </div>
-          </div>
-          <div class="flip-box-back">
-            <h2>{{list[index]?.name}}</h2>
-            <p>{{list[index]?.mean}}</p>
+            <div class="flip-box-back">
+              <h2>{{list[index]?.name}}</h2>
+              <p>{{list[index]?.mean}}</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="card-footer">
-      <div>click vào để lật thẻ</div>
-    </div>
-    <div class="left-control position-absulute">
-      <div class="left">
-        <button [disabled]="index == 0" (click)="changeIndex(false)" pButton pRipple type="button" icon="pi pi-angle-left" class="p-button-rounded p-button-secondary"></button>
+      <div class="card-footer">
+        <div>click vào để lật thẻ</div>
+      </div>
+      <div class="left-control position-absulute">
+        <div class="left">
+          <button [disabled]="index == 0" (click)="changeIndex(false)" pButton pRipple type="button" icon="pi pi-angle-left" class="p-button-rounded p-button-secondary"></button>
+        </div>
+      </div>
+      <div class="right-control position-absulute">
+        <div class="right">
+          <button [disabled]="index + 1 == list.length" (click)="changeIndex(true)" pButton pRipple type="button" icon="pi pi-angle-right" class="p-button-rounded p-button-secondary"></button>
+        </div>
       </div>
     </div>
-    <div class="right-control position-absulute">
-      <div class="right">
-        <button [disabled]="index + 1 == list.length" (click)="changeIndex(true)" pButton pRipple type="button" icon="pi pi-angle-right" class="p-button-rounded p-button-secondary"></button>
-      </div>
-    </div>
-  </div>
-  <div class="option">
+    <div class="option">
       <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-success p-button-outlined"></button>
       Đã nhớ
       <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-outlined ml-2"></button>
-    Chưa nhớ
+      Chưa nhớ
+    </div>
+  </div>
+  <div class="text-center" *ngIf="list.length == 0">
+    Danh sách trống.
   </div>
 </div>
 

@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {merge, Observable, Subject} from 'rxjs';
+import {shareReplay} from "rxjs/operators";
 
 const baseUrl = "https://api.mazii.net/api/";
 
