@@ -10,6 +10,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HomeComponent} from "./main/home/home.component";
 import {MainModule} from "./main/main.module";
 import {NotFoundComponent} from "./main/not-found/not-found.component";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {NotFoundComponent} from "./main/not-found/not-found.component";
     FormsModule,
     MainModule,
     CardModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

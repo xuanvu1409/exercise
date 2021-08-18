@@ -1,0 +1,17 @@
+<div class="list">
+  <div class="item" *ngFor="let item of list" (click)="show(item)">
+    <span class="icon">{{iconType(item.type)}}</span>
+    <span class="name">{{item.name}}</span>
+  </div>
+</div>
+<p-dialog header="Detail" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}"
+          [draggable]="false" [resizable]="false">
+  <div class="item-detail">
+    <div class="item-name">Name: {{item?.name}}</div>
+    <div class="item-mean">Mean: {{item.mean != "null" ? item.mean : ''}}</div>
+    <div class="item-type">Type: {{item?.type}}</div>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="displayModal=false" label="Ok" styleClass="p-button-text"></p-button>
+  </ng-template>
+</p-dialog>

@@ -1,0 +1,121 @@
+
+.card {
+  background-color: white;
+  margin: 0 auto;
+  width: 500px;
+  box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+  border-radius: 6px;
+}
+.card-header {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.quantity {
+  font-size: 20px;
+}
+
+.card-footer {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  padding: 5px;
+  color: white;
+  background-color: #16a085;
+  text-align: center;
+}
+
+.card-body {
+  display: flex;
+  height: 50vh;
+  justify-content: center;
+  align-items: center;
+  transition: transform 1s;
+  position: relative;
+}
+
+.char {
+  font-size: 40px;
+}
+
+/*.detail {*/
+/*  display: none;*/
+/*}*/
+
+.option {
+  justify-content: center;
+  padding: 20px;
+  display: flex;
+  align-items: center
+}
+
+.option button {
+  margin-right: .5rem
+}
+
+.left-control {
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.right-control {
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.left {
+  left: -20px;
+  top: 40%;
+  position: absolute;
+}
+
+.right {
+  right: -20px;
+  top: 40%;
+  position: absolute;
+}
+
+.flip-box {
+  background-color: transparent;
+  width: 300px;
+  height: 200px;
+  perspective: 1000px;
+}
+
+.flip-box-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform .5s;
+  transform-style: preserve-3d;
+}
+
+.flip-box.active .flip-box-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-box-front, .flip-box-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-box-front {
+  color: black;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.flip-box-back {
+  background-color: #555;
+  color: white;
+  transform: rotateY(180deg);
+}
+

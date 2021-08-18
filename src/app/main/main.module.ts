@@ -10,12 +10,16 @@ import {InputTextModule} from "primeng/inputtext";
 import {RippleModule} from "primeng/ripple";
 import {TableComponent} from "./table/table.component";
 import { DetailComponent } from './table/detail/detail.component';
+import { TranslateComponent } from './translate/translate.component';
+import {CardModule} from "primeng/card";
+import {TranslateModule} from "./translate/translate.module";
 
 
 @NgModule({
   declarations: [
     TableComponent,
-    DetailComponent
+    DetailComponent,
+    TranslateComponent
   ],
   exports: [
     TableComponent
@@ -29,7 +33,9 @@ import { DetailComponent } from './table/detail/detail.component';
     DialogModule,
     InputTextModule,
     RippleModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CardModule,
+    TranslateModule
   ]
 })
 export class MainModule { }

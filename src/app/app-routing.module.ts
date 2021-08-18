@@ -13,6 +13,10 @@ const routes: Routes = [
     loadChildren: () => import("./main/main.module").then(m => m.MainModule)
   },
   {
+    path: 'translate',
+    loadChildren: () => import("./main/translate/translate.module").then(m => m.TranslateModule)
+  },
+  {
     path: '**',
     component: NotFoundComponent
   }

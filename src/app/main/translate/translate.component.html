@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <span>Tên danh mục</span>
+    </div>
+    <ul>
+      <li *ngFor="let item of folders; index as i">
+        <span [class]="'nav-link' + (i == 0 ? ' active' : '')" (click)="changeFolder($event, item.categoryId)">{{item.categoryName}}</span>
+      </li>
+    </ul>
+  </div>
+  <div class="body">
+    <div class="container">
+      <div class="option">
+        <button *ngIf="data.length != 0" (click)="screen = 2" pButton pRipple type="button" label="flashcard" class="p-button-raised p-button-secondary p-button-text mr-1"></button>
+        <button *ngIf="data.length != 0" pButton pRipple type="button" label="fill" class="p-button-raised p-button-secondary p-button-text"></button>
+      </div>
+      <app-list *ngIf="screen == 1" [list]="data"></app-list>
+      <app-flashcard *ngIf="screen == 2" [list]="data"></app-flashcard>
+    </div>
+  </div>
+</div>
