@@ -1,4 +1,5 @@
-.content {
+
+.list {
   padding: 15px;
   background-color: white;
   border-radius: 6px
@@ -75,7 +76,7 @@
 }
 
 .option button {
-  background-color: white;
+  background-color: white !important;
 }
 
 .not-item {

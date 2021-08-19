@@ -12,7 +12,9 @@ export class ListComponent implements OnInit {
   displayModal:boolean = false;
   item:any = {};
   list:any[] = [];
-  screen: Number = 1;
+  screen: Number = 2;
+  arrIndex:any[] = [];
+  index:number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,8 +41,39 @@ export class ListComponent implements OnInit {
   }
 
   getNote = (id) => {
+    this.index = 0;
     this.translateService.getNote(id).subscribe((res:any) => {
       this.list = res;
+      this.arrIndex = this.convertArr(res.length);
     })
+  }
+
+  convertArr = (number) => {
+    let arr = [];
+    for (let i = 0; i < number; i++) {
+      arr.push(i);
+    }
+    return arr;
+  }
+
+  randomIndex = (number) => {
+    this.index = 0;
+    this.arrIndex = [];
+    let arr = this.convertArr(number);
+    let j = 0;
+    let result = [];
+    while (number--) {
+      j = Math.floor(Math.random() * arr.length);
+      this.arrIndex.push(arr[j]);
+      arr.splice(j,1);
+    }
+  }
+
+  changeIndex = (value) => {
+    if (value) {
+      this.index += 1;
+    } else {
+      this.index -= 1;
+    }
   }
 }

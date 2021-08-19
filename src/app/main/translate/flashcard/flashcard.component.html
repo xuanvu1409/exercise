@@ -7,17 +7,17 @@
           <p-dropdown [options]="options" placeholder="Tất cả" optionLabel="label" optionValue="value" [showClear]="true"></p-dropdown>
         </div>
       </div>
-      <div class="card-body">
-        <div class="flip-box" (click)="show()">
+      <div class="card-body cursor-pointer" (click)="show()">
+        <div class="flip-box">
           <div class="flip-box-inner">
             <div class="flip-box-front">
               <div class="char">
-                {{list[index]?.name}}
+                {{list[arrIndex[index]]?.name}}
               </div>
             </div>
             <div class="flip-box-back">
-              <h2>{{list[index]?.name}}</h2>
-              <p>{{list[index]?.mean}}</p>
+              <h2>{{list[arrIndex[index]]?.name}}</h2>
+              <p>{{list[arrIndex[index]]?.mean}}</p>
             </div>
           </div>
         </div>
@@ -37,9 +37,9 @@
       </div>
     </div>
     <div class="option">
-      <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-success p-button-outlined"></button>
+      <button [disabled]="checkRemember(list[arrIndex[index]]?.id)" (click)="remember(list[arrIndex[index]]?.id)" pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-success p-button-outlined"></button>
       Đã nhớ
-      <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-outlined ml-2"></button>
+      <button [disabled]="!checkRemember(list[arrIndex[index]]?.id)" (click)="remember(list[arrIndex[index]]?.id)" pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-outlined ml-2"></button>
       Chưa nhớ
     </div>
   </div>

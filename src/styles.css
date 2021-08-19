@@ -44,3 +44,12 @@ ul {
 p {
   margin: 0
 }
+
+.float-right {
+  float: right;
+}
+
+.cursor-pointer {
+  cursor: pointer
+;
+}

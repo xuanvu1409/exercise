@@ -80,7 +80,7 @@
 
 .flip-box {
   background-color: transparent;
-  width: 300px;
+  width: 100%;
   height: 200px;
   perspective: 1000px;
 }
@@ -115,8 +115,7 @@
 
 .flip-box-back {
   border-radius: 6px;
-  background-color: #555;
-  color: white;
+  /*background-color: #555;*/
   transform: rotateY(180deg);
 }
 
