@@ -7,10 +7,10 @@ import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
 })
 export class FlashcardComponent implements OnInit {
   @Input() list: any[] = [];
+  @Input() clList: any[] = [];
   @Input() arrIndex: any[] = [];
   @Input() index: any = 0;
   @Output() setIndex = new EventEmitter();
-  @Output() setStatus = new EventEmitter();
   options: any[] = [{
     label: "Tất cả",
     value: 0
@@ -22,10 +22,39 @@ export class FlashcardComponent implements OnInit {
     value: 1
   }];
 
-  constructor() {
+  constructor(
+  ) {
   }
 
   ngOnInit(): void {
+  }
+
+  changeStatus = (event: any) => {
+    this.index = 0;
+    this.list = this.clList;
+    let dataLocal = JSON.parse(<string>localStorage.getItem('data2'));
+    let arr: any[] = [];
+    if (event.value == 1) {
+      dataLocal.map((e: any) => {
+        this.list.map((value: { id: any; }) => {
+          if (e.id == value.id && e.remember == true) {
+            arr.push(value)
+          }
+        })
+      })
+      this.list = arr;
+    } else if (event.value == 2) {
+      dataLocal.map((e: any) => {
+        this.list.map((value: { id: any; }) => {
+          if (e.id == value.id && e.remember == false) {
+            arr.push(value)
+          }
+        })
+      })
+      this.list = arr;
+    } else {
+      this.list = this.clList
+    }
   }
 
   changeIndex = (status: boolean) => {
@@ -34,10 +63,6 @@ export class FlashcardComponent implements OnInit {
       fBox.classList.remove("active");
     }
     this.setIndex.emit(status);
-  }
-
-  changeStatus = (event:any) => {
-    this.setStatus.emit(event.value)
   }
 
   show = () => {

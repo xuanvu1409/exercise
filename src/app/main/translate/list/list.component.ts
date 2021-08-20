@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {TranslateService} from "../../../services/translate.service";
 
@@ -12,20 +12,24 @@ export class ListComponent implements OnInit {
   displayModal:boolean = false;
   item:any = {};
   list:any[] = [];
+  clList:any[] = [];
   screen: Number = 1;
   arrIndex:any[] = [];
   index:number = 0;
 
   constructor(
     private route: ActivatedRoute,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private el: ElementRef
   ) {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.getNote(params.categoryId)
-    })
+    let dataLocal = JSON.parse(<string>localStorage.getItem('data2'));
+    if (!dataLocal) {
+      localStorage.setItem('data2', JSON.stringify([]));
+    }
+    this.getNote()
   }
 
   iconType = (str:String) => {
@@ -40,57 +44,30 @@ export class ListComponent implements OnInit {
     this.displayModal = true;
   }
 
-  getNote = (id: number) => {
+  getNote = () => {
     this.index = 0;
-    this.translateService.getNote(id).subscribe((res:any) => {
-      this.list = res;
-      this.arrIndex = this.convertArr(res.length);
-      this.saveLocal(res);
+    this.route.params.subscribe(params => {
+
+      let elem = this.el.nativeElement.querySelector(".p-dropdown-clear-icon");
+      if (elem) {
+        elem.click();
+      }
+      this.translateService.getNote(params.categoryId).subscribe((res:any) => {
+        this.list = res;
+        this.clList = res;
+        this.arrIndex = this.convertArr(res.length);
+        this.saveLocal(res);
+      })
     })
   }
 
   saveLocal = (arr:any[]) => {
     let dataLocal = JSON.parse(<string>localStorage.getItem('data2'));
-    if (this.list) {
-      !dataLocal ? localStorage.setItem('data2', JSON.stringify([])) : dataLocal;
-      let idData = dataLocal?.map((value: { id: number; }) => value.id);
-      let data = this.list.map(value => value.id);
-      let idUni = data.filter(value => idData?.indexOf(value) == -1);
-      let newData = idUni.map(value => ({id: value, remember: false}));
-      localStorage.setItem('data2', JSON.stringify([...dataLocal, ...newData]))
-    }
-  }
-
-  changeStatus = (value:number) => {
-    this.index = 0;
-    let dataLocal = JSON.parse(<string>localStorage.getItem('data2'));
-    let arr: any[] = [];
-    this.route.params.subscribe(params => {
-      this.translateService.getNote(params.categoryId).subscribe((res:any) => {
-        if (value == 1) {
-          dataLocal.map((e:any) => {
-            res.map((value: { id: any; }) => {
-              if (e.id == value.id && e.remember == true) {
-                arr.push(value)
-              }
-            })
-          })
-          this.list = arr;
-        } else if (value == 2) {
-          dataLocal.map((e:any) => {
-            res.map((value: { id: any; }) => {
-              if (e.id == value.id && e.remember == false) {
-                arr.push(value)
-              }
-            })
-          })
-          this.list = arr;
-        } else {
-          this.list = res;
-        }
-      })
-    })
-
+    let newArr = dataLocal.map((value: { id: any; }) => value.id);
+    let idList = arr.map(value => value.id);
+    let idUni = idList.filter(value => newArr.indexOf(value) == -1);
+    let newData = idUni.map(value => ({id: value, remember: false}))
+    localStorage.setItem('data2', JSON.stringify([...dataLocal, ...newData]))
   }
 
   convertArr = (number: number) => {

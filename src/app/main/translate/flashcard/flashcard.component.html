@@ -1,5 +1,5 @@
 <div class="content">
-  <div class="body" *ngIf="list.length != 0">
+  <div class="body">
     <div class="card position-relative">
       <div class="card-header">
         <div class="quantity"><span style="color: #dd2f6e">{{index + 1}}</span>/{{list.length}}</div>
@@ -7,7 +7,10 @@
           <p-dropdown [options]="options" (onChange)="changeStatus($event)" placeholder="Tất cả" optionLabel="label" optionValue="value" [showClear]="true"></p-dropdown>
         </div>
       </div>
-      <div class="card-body cursor-pointer" (click)="show()">
+    <div class="card-body" *ngIf="list.length == 0">
+      Không có từ nào.
+    </div>
+      <div class="card-body cursor-pointer" (click)="show()" *ngIf="list.length != 0">
         <div class="flip-box">
           <div class="flip-box-inner">
             <div class="flip-box-front">
@@ -36,15 +39,12 @@
         </div>
       </div>
     </div>
-    <div class="option">
+    <div class="option" *ngIf="list.length != 0">
       <button [disabled]="checkRemember(list[arrIndex[index]]?.id)" (click)="remember(list[arrIndex[index]]?.id)" pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-success p-button-outlined"></button>
       Đã nhớ
       <button [disabled]="!checkRemember(list[arrIndex[index]]?.id)" (click)="remember(list[arrIndex[index]]?.id)" pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-outlined ml-2"></button>
       Chưa nhớ
     </div>
-  </div>
-  <div class="text-center" *ngIf="list.length == 0">
-    Danh sách trống.
   </div>
 </div>
 
