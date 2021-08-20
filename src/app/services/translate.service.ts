@@ -19,7 +19,7 @@ export class TranslateService {
     return this.httpClient.get(baseUrl + "get-category/0/100", {headers: {Authorization: '3fef9c7409b2f7a45b805096dd7517ae'}})
   }
 
-  getNote = (id) => {
+  getNote = (id: number) => {
     return this.httpClient.get(`${baseUrl}get-note/${id}/0/100`, {headers: {Authorization: '3fef9c7409b2f7a45b805096dd7517ae'}})
   }
 }

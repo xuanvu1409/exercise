@@ -40,15 +40,60 @@ export class ListComponent implements OnInit {
     this.displayModal = true;
   }
 
-  getNote = (id) => {
+  getNote = (id: number) => {
     this.index = 0;
     this.translateService.getNote(id).subscribe((res:any) => {
       this.list = res;
       this.arrIndex = this.convertArr(res.length);
+      this.saveLocal(res);
     })
   }
 
-  convertArr = (number) => {
+  saveLocal = (arr:any[]) => {
+    let dataLocal = JSON.parse(<string>localStorage.getItem('data2'));
+    if (this.list) {
+      !dataLocal ? localStorage.setItem('data2', JSON.stringify([])) : dataLocal;
+      let idData = dataLocal?.map((value: { id: number; }) => value.id);
+      let data = this.list.map(value => value.id);
+      let idUni = data.filter(value => idData?.indexOf(value) == -1);
+      let newData = idUni.map(value => ({id: value, remember: false}));
+      localStorage.setItem('data2', JSON.stringify([...dataLocal, ...newData]))
+    }
+  }
+
+  changeStatus = (value:number) => {
+    this.index = 0;
+    let dataLocal = JSON.parse(<string>localStorage.getItem('data2'));
+    let arr: any[] = [];
+    this.route.params.subscribe(params => {
+      this.translateService.getNote(params.categoryId).subscribe((res:any) => {
+        if (value == 1) {
+          dataLocal.map((e:any) => {
+            res.map((value: { id: any; }) => {
+              if (e.id == value.id && e.remember == true) {
+                arr.push(value)
+              }
+            })
+          })
+          this.list = arr;
+        } else if (value == 2) {
+          dataLocal.map((e:any) => {
+            res.map((value: { id: any; }) => {
+              if (e.id == value.id && e.remember == false) {
+                arr.push(value)
+              }
+            })
+          })
+          this.list = arr;
+        } else {
+          this.list = res;
+        }
+      })
+    })
+
+  }
+
+  convertArr = (number: number) => {
     let arr = [];
     for (let i = 0; i < number; i++) {
       arr.push(i);
@@ -56,7 +101,7 @@ export class ListComponent implements OnInit {
     return arr;
   }
 
-  randomIndex = (number) => {
+  randomIndex = (number: number) => {
     this.index = 0;
     this.arrIndex = [];
     let arr = this.convertArr(number);
@@ -69,7 +114,7 @@ export class ListComponent implements OnInit {
     }
   }
 
-  changeIndex = (value) => {
+  changeIndex = (value: boolean) => {
     if (value) {
       this.index += 1;
     } else {

@@ -14,7 +14,7 @@
         Danh sách trống.
       </div>
     </div>
-    <app-flashcard *ngIf="screen == 2" [list]="list" [index]="index" (setIndex)="changeIndex($event)" [arrIndex]="arrIndex"></app-flashcard>
+    <app-flashcard *ngIf="screen == 2" [list]="list" [index]="index" (setStatus)="changeStatus($event)" (setIndex)="changeIndex($event)" [arrIndex]="arrIndex"></app-flashcard>
   </div>
   <p-dialog [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}"
             [draggable]="false" [resizable]="false">
