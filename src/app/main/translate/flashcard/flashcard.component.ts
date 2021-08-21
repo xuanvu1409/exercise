@@ -6,11 +6,11 @@ import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
   styleUrls: ['./flashcard.component.css']
 })
 export class FlashcardComponent implements OnInit {
-  @Input() list: any[] = [];
-  @Input() clList: any[] = [];
-  @Input() arrIndex: any[] = [];
-  @Input() index: any = 0;
+  @Input() quantity: number = 0;
+  @Input() flashcard: any = {};
+  @Input() index: number = 0;
   @Output() setIndex = new EventEmitter();
+  @Output() setStatus = new EventEmitter();
   options: any[] = [{
     label: "Tất cả",
     value: 0
@@ -29,32 +29,17 @@ export class FlashcardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  changeStatus = (event: any) => {
-    this.index = 0;
-    this.list = this.clList;
-    let dataLocal = JSON.parse(<string>localStorage.getItem('data2'));
-    let arr: any[] = [];
-    if (event.value == 1) {
-      dataLocal.map((e: any) => {
-        this.list.map((value: { id: any; }) => {
-          if (e.id == value.id && e.remember == true) {
-            arr.push(value)
-          }
-        })
-      })
-      this.list = arr;
-    } else if (event.value == 2) {
-      dataLocal.map((e: any) => {
-        this.list.map((value: { id: any; }) => {
-          if (e.id == value.id && e.remember == false) {
-            arr.push(value)
-          }
-        })
-      })
-      this.list = arr;
-    } else {
-      this.list = this.clList
+  resetIndex = (arr:any[]) => {
+    console.log(arr.length)
+    let newIndex = [];
+    for (let i = 0; i < arr.length; i++) {
+      newIndex.push(i);
     }
+    console.log('Array index:' + newIndex)
+  }
+
+  changeStatus = (event: any) => {
+    this.setStatus.emit(event.value);
   }
 
   changeIndex = (status: boolean) => {

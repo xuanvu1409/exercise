@@ -2,7 +2,7 @@
   <div class="option">
     <button *ngIf="list.length != 0" (click)="screen == 1 ? screen = 2 : screen = 1" pButton pRipple type="button" label="flashcard" class="p-button-raised p-button-secondary p-button-text mr-1"></button>
     <button *ngIf="list.length != 0" pButton pRipple type="button" label="fill" class="p-button-raised p-button-secondary p-button-text"></button>
-    <button *ngIf="list.length != 0" (click)="randomIndex(list.length)" pButton pRipple type="button" icon="pi pi-refresh" class="p-button-raised p-button-secondary p-button-text float-right"></button>
+    <button *ngIf="list.length != 0" (click)="randomIndex()" pButton pRipple type="button" icon="pi pi-refresh" class="p-button-raised p-button-secondary p-button-text float-right"></button>
   </div>
   <div class="content">
     <div class="list card" *ngIf="screen == 1">
@@ -14,7 +14,7 @@
         Danh sách trống.
       </div>
     </div>
-    <app-flashcard *ngIf="screen == 2" [list]="list" [clList]="clList" [index]="index" (setIndex)="changeIndex($event)" [arrIndex]="arrIndex"></app-flashcard>
+    <app-flashcard *ngIf="screen == 2" [flashcard]="flashcard" [index]="index" (setStatus)="changeStatus($event)" [quantity]="quantity" (setIndex)="changeIndex($event)"></app-flashcard>
   </div>
   <p-dialog [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}"
             [draggable]="false" [resizable]="false">
