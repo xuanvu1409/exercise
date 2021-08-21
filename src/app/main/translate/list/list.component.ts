@@ -12,7 +12,7 @@ export class ListComponent implements OnInit {
   displayModal: boolean = false;
   item: any = {};
   list: any[] = [];
-  screen: Number = 2;
+  screen: Number = 1;
   arrIndex: any[] = [];
   index: number = 0;
   flashcard: any = {};
