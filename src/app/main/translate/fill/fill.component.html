@@ -1,0 +1,22 @@
+<div class="game__container">
+  <div class="game__body">
+    <div class="game__timebar card">
+      <div class="game__timebar--countdown">
+        <p-progressBar [showValue]="false" [style]="{height: '10px'}" [value]="value"></p-progressBar>
+      </div>
+    </div>
+    <div class="game__content">
+      <div class="game__txt">
+        <div class="game__char" *ngFor="let item of chars">
+          <span>{{item.show == false ? '_' : item.char}}</span>
+        </div>
+      </div>
+      <div class="game__list">
+        <div class="game__button" *ngFor="let item of indexButtons">
+          <button class="btn" (click)="selectButton($event, buttons[item])">{{buttons[item]}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-confirmDialog></p-confirmDialog>

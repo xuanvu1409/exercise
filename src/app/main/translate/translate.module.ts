@@ -9,12 +9,16 @@ import {CardModule} from "primeng/card";
 import { FlashcardComponent } from './flashcard/flashcard.component';
 import {DropdownModule} from "primeng/dropdown";
 import {RippleModule} from "primeng/ripple";
+import { FillComponent } from './fill/fill.component';
+import {ProgressBarModule} from "primeng/progressbar";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 
 @NgModule({
   declarations: [
     ListComponent,
-    FlashcardComponent
+    FlashcardComponent,
+    FillComponent
   ],
   exports: [
     ListComponent,
@@ -27,7 +31,9 @@ import {RippleModule} from "primeng/ripple";
     ButtonModule,
     CardModule,
     DropdownModule,
-    RippleModule
+    RippleModule,
+    ProgressBarModule,
+    ConfirmDialogModule
   ]
 })
 export class TranslateModule { }

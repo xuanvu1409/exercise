@@ -1,26 +1,27 @@
 <div class="content">
+  <button *ngIf="list.length != 0" (click)="randomIndex()" pButton pRipple type="button" icon="pi pi-refresh" class="p-button-raised p-button-secondary p-button-text float-right"></button>
   <div class="body">
     <div class="card position-relative">
       <div class="card-header">
-        <div class="quantity"><span style="color: #dd2f6e">{{index + 1}}</span>/{{quantity}}</div>
+        <div class="quantity"><span style="color: #dd2f6e">{{index + 1}}</span>/{{list.length}}</div>
         <div class="filter">
           <p-dropdown [options]="options" (onChange)="changeStatus($event)" placeholder="Tất cả" optionLabel="label" optionValue="value" [showClear]="true"></p-dropdown>
         </div>
       </div>
-    <div class="card-body" *ngIf="quantity == 0">
+    <div class="card-body" *ngIf="list.length == 0">
       Không có từ nào.
     </div>
-      <div class="card-body cursor-pointer" (click)="show()" *ngIf="quantity != 0">
+      <div class="card-body cursor-pointer" (click)="show()" *ngIf="list.length != 0">
         <div class="flip-box">
           <div class="flip-box-inner">
             <div class="flip-box-front">
               <div class="char">
-                {{flashcard?.name}}
+                {{list[arrIndex[index]]?.name}}
               </div>
             </div>
             <div class="flip-box-back">
-              <h2>{{flashcard?.name}}</h2>
-              <p>{{flashcard?.mean}}</p>
+              <h2>{{list[arrIndex[index]]?.name}}</h2>
+              <p>{{list[arrIndex[index]]?.mean}}</p>
             </div>
           </div>
         </div>
@@ -35,14 +36,14 @@
       </div>
       <div class="right-control position-absulute">
         <div class="right">
-          <button [disabled]="index + 1 >= quantity" (click)="changeIndex(true)" pButton pRipple type="button" icon="pi pi-angle-right" class="p-button-rounded p-button-secondary"></button>
+          <button [disabled]="index + 1 >= list.length" (click)="changeIndex(true)" pButton pRipple type="button" icon="pi pi-angle-right" class="p-button-rounded p-button-secondary"></button>
         </div>
       </div>
     </div>
-    <div class="option" *ngIf="quantity != 0">
-      <button [disabled]="checkRemember(flashcard?.id)" (click)="remember(flashcard?.id)" pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-success"></button>
+    <div class="option" *ngIf="list.length != 0">
+      <button [disabled]="checkRemember(list[arrIndex[index]]?.id)" (click)="remember(list[arrIndex[index]]?.id)" pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-success"></button>
       Đã nhớ
-      <button [disabled]="!checkRemember(flashcard?.id)" (click)="remember(flashcard?.id)" pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger ml-2"></button>
+      <button [disabled]="!checkRemember(list[arrIndex[index]]?.id)" (click)="remember(list[arrIndex[index]]?.id)" pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger ml-2"></button>
       Chưa nhớ
     </div>
   </div>

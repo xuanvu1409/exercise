@@ -1,4 +1,5 @@
 import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-flashcard',
@@ -6,11 +7,11 @@ import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
   styleUrls: ['./flashcard.component.css']
 })
 export class FlashcardComponent implements OnInit {
-  @Input() quantity: number = 0;
-  @Input() flashcard: any = {};
-  @Input() index: number = 0;
-  @Output() setIndex = new EventEmitter();
-  @Output() setStatus = new EventEmitter();
+  index: number = 0;
+  @Input() arrIndex: any[] = [];
+  @Input() list: any[] = [];
+  @Input() listCl: any[] = [];
+  @Input() convertArr: any = {};
   options: any[] = [{
     label: "Tất cả",
     value: 0
@@ -23,23 +24,14 @@ export class FlashcardComponent implements OnInit {
   }];
 
   constructor(
+    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
-  }
-
-  resetIndex = (arr:any[]) => {
-    console.log(arr.length)
-    let newIndex = [];
-    for (let i = 0; i < arr.length; i++) {
-      newIndex.push(i);
-    }
-    console.log('Array index:' + newIndex)
-  }
-
-  changeStatus = (event: any) => {
-    this.setStatus.emit(event.value);
+    this.route.params.subscribe(params => {
+      this.index = 0;
+    })
   }
 
   changeIndex = (status: boolean) => {
@@ -47,7 +39,11 @@ export class FlashcardComponent implements OnInit {
     if (fBox) {
       fBox.classList.remove("active");
     }
-    this.setIndex.emit(status);
+    if (status) {
+      this.index += 1;
+    } else {
+      this.index -= 1;
+    }
   }
 
   show = () => {
@@ -77,6 +73,47 @@ export class FlashcardComponent implements OnInit {
     data[data.indexOf(item)] = {id, remember: !data[data.indexOf(item)].remember};
     localStorage.setItem('data2', JSON.stringify(data));
     return data[data.indexOf(item)]?.remember;
+  }
+
+  randomIndex = () => {
+    let number = this.list.length;
+    this.arrIndex = [];
+    this.index = 0;
+    let arr = this.convertArr(number);
+    let j = 0;
+    let result = [];
+    while (number--) {
+      j = Math.floor(Math.random() * arr.length);
+      this.arrIndex.push(arr[j]);
+      arr.splice(j, 1);
+    }
+  }
+
+  changeStatus = (event: any) => {
+    this.index = 0;
+    let dataLocal = JSON.parse(<string>localStorage.getItem('data2'));
+    this.list = this.listCl;
+    let arr: any[] = [];
+    if (event.value == 1) {
+      dataLocal.map((e: any) => {
+        this.list.map((value: { id: any; }) => {
+          if (e.id == value.id && e.remember == true) {
+            arr.push(value)
+          }
+        })
+      })
+      this.list = arr;
+    } else if (event.value == 2) {
+      dataLocal.map((e: any) => {
+        this.list.map((value: { id: any; }) => {
+          if (e.id == value.id && e.remember == false) {
+            arr.push(value)
+          }
+        })
+      })
+      this.list = arr;
+    }
+    this.arrIndex = this.convertArr(this.list.length);
   }
 
 }

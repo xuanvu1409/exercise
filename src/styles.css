@@ -53,3 +53,20 @@ p {
   cursor: pointer
 ;
 }
+
+.btn-danger {
+  background-color: #dd2f6e !important;
+}
+
+.btn-success {
+  background-color: #2ecc71 !important;
+}
+
+.btn {
+  background-color: white;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-style: unset;
+  border-radius: 3px;
+  box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+}
