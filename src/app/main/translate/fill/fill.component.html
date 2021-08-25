@@ -2,7 +2,16 @@
   <div class="game__body">
     <div class="game__timebar card">
       <div class="game__timebar--countdown">
-        <p-progressBar [showValue]="false" [style]="{height: '10px'}" [value]="value"></p-progressBar>
+<!--        <p-progressBar [showValue]="false" [style]="{height: '10px'}" [value]="value"></p-progressBar>-->
+        <div class="progress">
+          <div class="progress-bar" [style]="{width: value + '%'}" [ngClass]="{
+            'progress-bar-100': value <= 100 && value > 75,
+            'progress-bar-75': value <= 75 && value > 50,
+            'progress-bar-50': value <= 50 && value > 25,
+            'progress-bar-25': value <= 25 && value > 5,
+            'progress-bar-5':  value <= 5
+          }"></div>
+        </div>
       </div>
     </div>
     <div class="game__content">

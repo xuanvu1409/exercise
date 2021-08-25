@@ -19,6 +19,7 @@ export class FillComponent implements OnInit, OnChanges {
   indexButtons: any[] = [];
   indexChar: number = 0;
 
+
   constructor(
     private el: ElementRef,
     private route: ActivatedRoute,
@@ -55,7 +56,7 @@ export class FillComponent implements OnInit, OnChanges {
           }
         });
       }
-    }, 500)
+    }, 400)
   }
 
   randomShow = (name: string) => {
