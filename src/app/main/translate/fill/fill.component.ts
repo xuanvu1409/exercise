@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import { ConfirmationService } from 'primeng/api';
 
@@ -18,6 +18,7 @@ export class FillComponent implements OnInit, OnChanges {
   buttons: string[] = [];
   indexButtons: any[] = [];
   indexChar: number = 0;
+  interval:any;
 
 
   constructor(
@@ -32,16 +33,22 @@ export class FillComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.countDown();
-    this.randomShow(this.data[this.arrIndex[this.index]].name);
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+    if (this.data.length != 0) {
+      this.countDown();
+      this.randomShow(this.data[this.arrIndex[this.index]].name);
+    }
   }
 
   countDown = () => {
     this.value = 100;
-    let time = setInterval(() => {
-      this.value -= 1;
-      if (this.value == 0 && this.index < this.data.length) {
-        clearInterval(time);
+    this.interval = setInterval(() => {
+      this.value-=1;
+      console.log(this.value)
+      if (this.value <= 0) {
+        clearInterval(this.interval);
         this.confirmationService.confirm({
           message: 'Rất tiếc đã hết thời gian, bạn có muốn chơi lại không?',
           header: 'Thất bại',

@@ -17,6 +17,10 @@ const routes: Routes = [
     loadChildren: () => import("./main/translate/translate.module").then(m => m.TranslateModule)
   },
   {
+    path: 'voice',
+    loadChildren: () => import("./main/voice/voice.module").then(m => m.VoiceModule)
+  },
+  {
     path: '**',
     component: NotFoundComponent
   }
