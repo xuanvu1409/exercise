@@ -443,6 +443,7 @@ textarea:focus, input:focus {
 .featured__item {
   width: 150px;
   margin-right: 20px;
+  cursor: pointer;
 }
 
 .featured__buttons {
@@ -571,7 +572,8 @@ textarea:focus, input:focus {
 }
 
 .carousel__item {
-  margin-right: 20px
+  margin-right: 20px;
+  cursor: pointer;
 }
 
 .carousel__item:nth-child(4n + 0) {
@@ -637,6 +639,7 @@ textarea:focus, input:focus {
   background-color: #1C1B1B;
   font-size: 13px;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 
 .footer {
@@ -652,6 +655,8 @@ textarea:focus, input:focus {
   display: inline-block;
   margin-left: 30px;
   font-weight: 500;
+
+  cursor: pointer;
 }
 
 
